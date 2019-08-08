@@ -1,0 +1,59 @@
+ls -a
+emacs
+gcn
+exit
+exit
+ls -a
+emacs .zsh_history
+vim
+clear
+ls -a
+clear
+ls -a
+bat
+brew
+wget
+curl
+gcc
+lang
+clang
+g++
+exit
+ls -a
+mkdir helloworld
+mv helloworld/ 0helloworld
+ls -a
+cd 0helloworld/
+ls -a
+touch helloworld.el
+exit
+ls -a
+..
+ls -a
+mkdir 1funcs
+ls -a
+cd 1
+cd 1funcs/
+ls -a
+touch funcs
+ls -a
+mv funcs funcs.el
+..
+ls -a
+mkdir 2vars
+cd 2vars/
+sl a-
+ls -a
+touch vars.el
+ls -a
+ls -a
+rm -rf init.el\~ .\#init.el 
+ls -a
+ls -a
+cd elpa/
+sl a-
+ls -a
+rm -rf auto-complete*
+ls -a
+find
+exit
