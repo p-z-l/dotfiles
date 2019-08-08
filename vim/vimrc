@@ -1,0 +1,191 @@
+set nocompatible
+
+set number
+syntax on
+
+" remap the leader
+let mapleader=";"
+let maplocalleader=";;"
+
+" Editor
+"set showmode
+set nowrap
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set shiftround
+set backspace=indent,eol,start
+set autoindent
+set copyindent
+set number
+set showmatch
+set ignorecase
+set smartcase
+set smarttab
+set scrolloff=4
+set hlsearch
+set incsearch
+set pastetoggle=<F2>
+set mouse=a
+set fileformats="unix,dos,mac"
+set formatoptions+=1
+set clipboard=unnamed
+set autoread " automatically reload files changed outside of Vim
+set updatetime=1000
+set guifont=menlo:h11
+set encoding=utf-8
+
+" true color
+if (has("termguicolors"))
+   set termguicolors
+endif
+if !has('gui_running')
+  set t_Co=256
+endif
+
+call plug#begin()
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'vim-scripts/vim-webdevicons'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'itchyny/lightline.vim'
+Plug 'mhinz/vim-startify'
+Plug 'joshdick/onedark.vim'
+Plug 'bling/vim-bufferline'
+
+" neocomplete
+Plug 'Shougo/neocomplete.vim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+call plug#end()
+
+color onedark
+
+" bufferline configs
+let g:bufferline_active_buffer_left = ''
+let g:bufferline_active_buffer_right = ''
+let g:bufferline_echo = 0
+autocmd VimEnter *
+  \ let &statusline='%{bufferline#refresh_status()}'
+    \ .bufferline#get_status_string()
+
+
+" nerdtree configs
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeHidden=1
+
+" lightline configs
+set laststatus=2
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \ },
+      \ }
+let g:lightline.separator = {
+	\   'left': '', 'right': ''
+  \}
+let g:lightline.subseparator = {
+	\   'left': '', 'right': ''
+  \}
+
+" key maps
+map <LEADER>t :NERDTreeToggle<CR>
+map <LEADER>s :w<CR>
+map <LEADER>S :w!<CR>
+map <LEADER>q :qa<CR>
+map <LEADER>Q :qa!<CR>
+map <LEADER>x :wq<CR>
+map <LEADER>r :source ~/.vimrc<CR>
+map <LEADER>pi :PlugInstall<CR>
+map <LEADER>pc :PlugClean<CR>
+
+" NeoComplete Configs
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
