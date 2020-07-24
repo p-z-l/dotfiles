@@ -1,0 +1,12 @@
+export CLICOLOR=1
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+source ~/.config/bash/*
+
+#setsup thecolor scheme for list export
+export LSCOLORS=gxfxcxdxbxegedabagacad
+#enables colorfor iTerm
+export TERM=xterm-256color
+export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$ '
+
+ssproxy
