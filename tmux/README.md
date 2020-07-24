@@ -1,5 +1,3 @@
 # Tmux configs
 
-I put my tmux configs in:
-- `~/.tmux.conf`: Contains all the settings
-- `~/.tmux/`: Plugins (managed by [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm))
+My tmux config is based on [magicTmux](https://github.com/p-z-l/magicTmux) (also created by me), with a little bit of customized tweaks.
