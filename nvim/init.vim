@@ -7,7 +7,7 @@ set number
 set showmode 
 set number 
 set relativenumber 
-set nowrap 
+set wrap 
 set tabstop=4 
 set softtabstop=4 
 set expandtab 
@@ -68,8 +68,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 
 "Navigator
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'ryanoasis/vim-devicons', { 'on': 'NERDTreeToggle' }
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-icons'
+Plug 'kristijanhusak/defx-git'
 
 "Languages
 Plug 'keith/swift.vim'
@@ -81,9 +82,10 @@ color onedark
 
 "Load config files
 runtime scripts/keymaps.vim
-runtime plugConfs/NERDTree.vim
+"runtime plugConfs/NERDTree.vim
 runtime plugConfs/vim-multiple-cursors.vim
 runtime plugConfs/fzf.vim
 runtime plugConfs/ultisnips.vim
 runtime plugConfs/deoplete.vim
+runtime plugConfs/defx.vim
 
