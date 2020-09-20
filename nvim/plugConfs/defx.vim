@@ -14,13 +14,23 @@ nmap <silent> <F2> :Defx -columns=indent:git:mark:icons:filename:type<cr>
 autocmd FileType defx call s:defx_mappings()
 
 function! s:defx_mappings() abort
-  nnoremap <silent><buffer><expr> o <SID>defx_toggle_tree() " open/close dirs, open files
-  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files') " toggle show hidden files
-  nnoremap <silent><buffer><expr> R defx#do_action('redraw') " reload
+	  nnoremap <silent><buffer><expr> o
+	  \ <SID>defx_open()
+      nnoremap <silent><buffer><expr> .
+      \ defx#do_action('toggle_ignored_files')
+      nnoremap <silent><buffer><expr> R
+      \ defx#do_action('redraw')
+      nnoremap <silent><buffer><expr> fn
+      \ defx#do_action('new_file')
+      nnoremap <silent><buffer><expr> fr
+      \ defx#do_action('rename')
+	  nnoremap <silent><buffer><expr> fd
+	  \ defx#do_action('remove')
+      nnoremap <silent><buffer><expr> yy
+      \ defx#do_action('yank_path')
 endfunction
 
-function! s:defx_toggle_tree() abort
-    " Open current file, or toggle directory expand/collapse
+function! s:defx_open() abort
     if defx#is_directory()
         return defx#do_action('open_or_close_tree')
     endif
